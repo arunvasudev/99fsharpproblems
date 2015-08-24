@@ -22,3 +22,9 @@ let rec elementAt k ys =
     | (_, []) -> failwith "List is too small"
     | (1, x::xs) -> x
     | (k, x::xs) -> elementAt (k - 1) xs 
+
+(* P04 - find the number of elements in a list *)
+let rec myLength xs = 
+    match xs with
+    | [] -> 0
+    | x::xs' -> 1 + (myLength xs')
