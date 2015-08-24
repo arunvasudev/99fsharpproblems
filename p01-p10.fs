@@ -28,3 +28,11 @@ let rec myLength xs =
     match xs with
     | [] -> 0
     | x::xs' -> 1 + (myLength xs')
+
+(* P05 - reverse a given list *)
+let myReverse xs =
+    let rec myReverse' rs ys =
+        match ys with 
+        | [] -> rs
+        | y::ys' -> myReverse' (y::rs) ys'
+    myReverse' [] xs
