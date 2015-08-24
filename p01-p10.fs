@@ -41,3 +41,14 @@ let myReverse xs =
 let isPalindrome xs =
     let xs' = List.rev xs
     xs = xs'
+
+(* P07 - flattens a nested list structure *)
+type NestedList<'a> =
+    | Elem of 'a
+    | Lst of NestedList<'a> list
+
+let rec flattenNested xs = 
+    match xs with
+    | Elem(x) -> [x]
+    | Lst([]) -> []
+    | Lst(y::ys) -> List.concat [flattenNested y; flattenNested (Lst ys)]
