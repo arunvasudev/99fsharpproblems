@@ -36,3 +36,8 @@ let myReverse xs =
         | [] -> rs
         | y::ys' -> myReverse' (y::rs) ys'
     myReverse' [] xs
+
+(* P06 - returns true if a given list is a palindrome, false otherwise *)
+let isPalindrome xs =
+    let xs' = List.rev xs
+    xs = xs'
