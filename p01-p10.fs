@@ -52,3 +52,13 @@ let rec flattenNested xs =
     | Elem(x) -> [x]
     | Lst([]) -> []
     | Lst(y::ys) -> List.concat [flattenNested y; flattenNested (Lst ys)]
+
+(* P08 - Replaces consecutive elements of a list with a single element *)
+let compress xs = 
+    let rec compress' zs t ys  =
+        match ys with 
+        | [] -> t::zs 
+        | y::ys' -> if (t = y) then (compress' zs t ys') else (compress' (t::zs) y ys')
+    match xs with
+    | [] -> []
+    | x::xs -> List.rev (compress' [] x xs)
