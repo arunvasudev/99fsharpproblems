@@ -80,12 +80,18 @@ let pack xs =
 (* P10 - Encode a list *)
 let encode xs = [for xs' in (pack xs) -> (List.length xs', List.head xs')]
 
-(* Modified run-length encoding *)
+(* P11 - Modified run-length encoding *)
 type Coding<'a> = 
-    | Elem of 'a
-    | CodingPair of int * 'a
+    | Single of 'a
+    | Multiple of int * 'a
 
 let encodeModified xs = 
     [for xs' in pack xs -> let l = List.length xs'
                            let x = List.head xs'
-                           if l = 1 then Elem(x) else CodingPair(l, x)]
+                           if l = 1 then Single(x) else Multiple(l, x)]
+
+(* P12 - Decode a run-length encoded list *)
+let decodeModified xs = 
+    List.concat [for xs' in xs -> match xs' with
+                                  | Single(x) -> [x]
+                                  | Multiple(n, x) -> List.replicate n x]
