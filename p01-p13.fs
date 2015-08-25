@@ -76,5 +76,16 @@ let pack xs =
     | [] -> []
     | x::xs' -> List.rev (pack' [] [x] xs')
 
+
 (* P10 - Encode a list *)
 let encode xs = [for xs' in (pack xs) -> (List.length xs', List.head xs')]
+
+(* Modified run-length encoding *)
+type Coding<'a> = 
+    | Elem of 'a
+    | CodingPair of int * 'a
+
+let encodeModified xs = 
+    [for xs' in pack xs -> let l = List.length xs'
+                           let x = List.head xs'
+                           if l = 1 then Elem(x) else CodingPair(l, x)]
