@@ -62,3 +62,16 @@ let compress xs =
     match xs with
     | [] -> []
     | x::xs -> List.rev (compress' [] x xs)
+
+(* Pack consecutive equivalent items of a list into sublists *)
+let pack xs = 
+    let rec pack' soFarL currL ys = 
+        match ys with
+        | [] ->  currL::soFarL
+        | y::ys' -> let t = List.head currL
+                    if (t = y) 
+                    then (pack' soFarL (y::currL) ys') 
+                    else (pack' (currL::soFarL) [y] ys')
+    match xs with 
+    | [] -> []
+    | x::xs' -> List.rev (pack' [] [x] xs')
