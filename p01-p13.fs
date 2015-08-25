@@ -95,3 +95,17 @@ let decodeModified xs =
     List.concat [for xs' in xs -> match xs' with
                                   | Single(x) -> [x]
                                   | Multiple(n, x) -> List.replicate n x]
+
+(* P13 - Directly run-length encode a list *)
+let encodeDirect xs = 
+    let rec encode' soFar count t xs' = 
+        let item n x = if (n = 1) then Single(x) else Multiple(n, x)
+        match xs' with
+        | [] -> (item count t)::soFar
+        | x'::xs'' -> if (t = x') 
+                      then encode' soFar (count + 1) t xs''
+                      else encode' ((item count t)::soFar) 1 x' xs''
+    match xs with
+    | [] -> []
+    | x::xs' -> List.rev (encode' [] 1 x xs')
+                                    
