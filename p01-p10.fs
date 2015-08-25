@@ -63,7 +63,7 @@ let compress xs =
     | [] -> []
     | x::xs -> List.rev (compress' [] x xs)
 
-(* Pack consecutive equivalent items of a list into sublists *)
+(* P09 - Pack consecutive equivalent items of a list into sublists *)
 let pack xs = 
     let rec pack' soFarL currL ys = 
         match ys with
@@ -75,3 +75,6 @@ let pack xs =
     match xs with 
     | [] -> []
     | x::xs' -> List.rev (pack' [] [x] xs')
+
+(* P10 - Encode a list *)
+let encode xs = [for xs' in (pack xs) -> (List.length xs', List.head xs')]
