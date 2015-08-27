@@ -36,3 +36,6 @@ let dropNth n xs =
 
 (* P17 - Split a given list after the nth element *)
 let split xs n = if n <= 0 then ([], xs) else (take n xs, drop n xs)
+
+(* P18 - Extract a slice of ith to kth elements of a list. Counting starts from 1 *)
+let slice xs i k = drop (i-1) (take k xs)
