@@ -33,3 +33,6 @@ let dropNth n xs =
         | [] -> []
         | _ -> (take (n - 1) xs)::(dropNth' n (drop n xs))
     List.concat (dropNth' n xs)
+
+(* P17 - Split a given list after the nth element *)
+let split xs n = if n <= 0 then ([], xs) else (take n xs, drop n xs)
