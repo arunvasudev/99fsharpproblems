@@ -39,3 +39,13 @@ let split xs n = if n <= 0 then ([], xs) else (take n xs, drop n xs)
 
 (* P18 - Extract a slice of ith to kth elements of a list. Counting starts from 1 *)
 let slice xs i k = drop (i-1) (take k xs)
+
+(* P19 - Rotate an list n positions to the left *)
+let rotate xs n =
+    let l = List.length xs
+    if n > 0 then
+        let n' = n % l
+        List.append (drop n' xs) (take n' xs)
+    else
+        let n' = l - ((abs n) % l)
+        List.append (drop n' xs) (take n' xs)
