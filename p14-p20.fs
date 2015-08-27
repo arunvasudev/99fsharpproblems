@@ -49,3 +49,6 @@ let rotate xs n =
     else
         let n' = l - ((abs n) % l)
         List.append (drop n' xs) (take n' xs)
+
+(* P20 - Removes the kth element of a list *)
+let removeAt xs k = List.append (take (k-1) xs) (drop k xs)
