@@ -55,3 +55,8 @@ let removeAt xs k = List.append (take (k-1) xs) (drop k xs)
 
 (* P21 - Insert an element at a given position into a list *)
 let insertAt x xs n = List.concat [take (n-1) xs; [x]; drop (n-1) xs]
+
+(* P22 - Create a list with all the elements in a given range *)
+let range st en =
+    if st < en then [for x = st to en do yield x]
+    else [for x = st downto en do yield x]
