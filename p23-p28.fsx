@@ -26,3 +26,14 @@ let rndSelectInRange n m = rndSelect [1..m] n
 
 (* P25 - Generate a permutation of a given list *)
 let rndPermute xs = rndSelect xs (List.length xs)
+
+(* P26 - Generate all the combinations of k elements from a list *)
+let rec combinations n xs = 
+    let l = List.length xs
+    if n <= 0 || l < n || l = 0 then []
+    else if n = l then [xs]
+    else
+        let (x::xs') = xs
+        let combs1 = List.map (fun ys -> x::ys) (combinations (n-1) xs')
+        let combs2 = combinations n xs'
+        combs1 @ combs2
