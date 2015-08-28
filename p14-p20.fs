@@ -52,3 +52,6 @@ let rotate xs n =
 
 (* P20 - Removes the kth element of a list *)
 let removeAt xs k = List.append (take (k-1) xs) (drop k xs)
+
+(* P21 - Insert an element at a given position into a list *)
+let insertAt x xs n = List.concat [take (n-1) xs; [x]; drop (n-1) xs]
