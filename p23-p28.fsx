@@ -84,3 +84,7 @@ let rec partitions' ns partns =
             partitions' ns' (nextPartition n partns)
 
 let partitions ns xs = partitions' ns [[xs]]
+
+(* P28A - sort a list of lists according to their lengths *)
+let sortByLength (xs: 'a list list) = 
+    List.sortWith (fun xs' ys' -> compare (List.length xs') (List.length ys')) xs
