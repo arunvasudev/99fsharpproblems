@@ -39,6 +39,7 @@ let rec combinations n xs =
                    let combs2 = combinations n xs'
                    combs1 @ combs2
 
+(* No longer used! *)
 let rec diff xs ys = 
     match xs, ys with
     | [], _ -> []
@@ -46,13 +47,26 @@ let rec diff xs ys =
 
 (* Helper for p27 - partition a list into components of (L - n) and n 
    elements each, where L is the length of the list *)
+let rec combsWithRems n xs =
+    match n, xs with
+    | 0, _ -> [(xs, [])] 
+    | _, [] -> []
+    | n, x::xs' ->
+        let combs1 = List.map (fun ps -> 
+                                let (f, s) = ps
+                                (f, x::s)) (combsWithRems (n-1) xs')
+        let combs2 = List.map (fun ps ->
+                                let (f, s) = ps
+                                (x::f, s)) (combsWithRems n xs')
+        combs1 @ combs2
+
 let onePartition n xs = 
     if n = List.length xs then [[xs]]
     else
-        let combs1 = combinations n xs
-        List.map (fun ys -> (diff xs ys)::[ys]) combs1
+        let combs1 = combsWithRems n xs
+        List.map (fun ps -> (fst ps)::[snd ps]) combs1
 
-(* P27 - partition a list into disjoin subsets *)
+(* P27 - partition a list into disjoint subsets *)
 let rec partitions' ns partns =
     match ns with
     | [] -> partns
