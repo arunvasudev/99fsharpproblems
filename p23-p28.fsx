@@ -88,3 +88,16 @@ let partitions ns xs = partitions' ns [[xs]]
 (* P28A - sort a list of lists according to their lengths *)
 let sortByLength (xs: 'a list list) = 
     List.sortWith (fun xs' ys' -> compare (List.length xs') (List.length ys')) xs
+
+(* P28B - sort a list of lists according to the frequency of their elements' lengths *)
+open Microsoft.FSharp.Collections
+let sortByLenFreqs (xs: 'a list list) =
+    let incLen len map = 
+        if Map.containsKey len map 
+        then Map.add len ((Map.find len map) + 1) map
+        else Map.add len 1 map
+    let lenMap = List.fold (fun m xs' -> incLen (List.length xs') m) Map.empty<int, int> xs
+    let lenCompare map xs' ys'  = 
+        let (xLen, yLen) = (List.length xs', List.length ys')
+        compare ((Map.find xLen map), xLen) ((Map.find yLen map), yLen)
+    List.sortWith (lenCompare lenMap) xs 
