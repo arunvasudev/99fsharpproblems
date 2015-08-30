@@ -10,3 +10,11 @@ let rec gcd a b =
     match b with 
     | 0 -> a
     | _ -> gcd b (a % b)
+
+(* P33 - determines if two integers are coprime *)
+let coprime a b = (gcd a b) = 1
+
+(* P34 - Euler's totient function, naive version *)
+let totient n = 
+    if n = 1 then 1
+    else List.fold (fun acc x -> if (coprime n x) then acc + 1 else acc) 0 [1..(n-1)]
