@@ -3,7 +3,7 @@ module fsharp99
 (* P31 - returns true if n is a prime *)
 let isPrime n =
     let intSqrt = int (ceil (sqrt (float n)))
-    n = 2 || not (List.exists (fun d -> n % d = 0) [2..intSqrt])
+    n <> 1 && (n = 2 || not (List.exists (fun d -> n % d = 0) [2..intSqrt]))
 
 (* P32 - returns the GCD of two numbers *)
 let rec gcd a b = 
@@ -56,3 +56,6 @@ let totientImp n =
         | n::ns' -> n*(product ns')
         | [] -> 1
     product [for (p, m) in factors do yield (p-1)*(pown p (m - 1))]
+
+(* P39 - Return a list of primes in the given range *)
+let primesR st en = [for n in st..en do if isPrime(n) then yield n]
