@@ -74,12 +74,17 @@ let goldbach n =
         | [] -> failwith "Golbach proven wrong?!"
     aux primes
 
-(* P41 - print the goldbach pairs for all even numbers in a given range *)
-let goldbachList st en =
-    let gpairs = [for n in st..en do if ((n % 2 = 0) && (n > 2)) then yield goldbach n]
+(* P41B - print the goldbach pairs whose numbers are greater than a given number *)
+let goldbachList' st en m =
+    let gpairs' = [for n in st..en do if ((n % 2 = 0) && (n > 2)) then yield goldbach n]
+    let gpairs = List.filter (fun (n1, n2) -> n1 > m && n2 > m) gpairs'
     let rec aux pairs =
         match pairs with
-        | (n1, n2)::pairs' ->  printfn "%d + %d = %d" n1 n2 (n1 + n2)
+        | (n1, n2)::pairs' ->  printfn "%d = %d + %d" (n1 + n2) n1 n2
                                aux pairs' 
         | [] -> ()
     aux gpairs
+
+(* P41A - print the goldbach pairs for all even numbers in a given range *)
+let goldbachList st en = goldbachList' st en 1
+
