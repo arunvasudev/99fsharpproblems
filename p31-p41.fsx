@@ -65,14 +65,14 @@ let goldbach n =
     if (n <= 2 || n % 2 <> 0) 
         then failwith (Printf.sprintf "Invalid input (%d) for goldbach - must be an even number greater than 2" n)
 
-    let primes = primesR 2 n
-    let rec aux primes = 
-        match primes with
-        | p::primes' -> if (isPrime (n - p)) 
-                        then (min p (n-p), max p (n - p))
-                        else aux primes'
+    let rec aux ns = 
+        match ns with
+        | p::ns' -> if (isPrime p) && (isPrime (n - p)) 
+                    then (min p (n-p), max p (n - p))
+                    else aux ns'
         | [] -> failwith "Golbach proven wrong?!"
-    aux primes
+
+    aux [2..n] 
 
 (* P41B - print the goldbach pairs whose numbers are greater than a given number *)
 let goldbachList' st en m =
