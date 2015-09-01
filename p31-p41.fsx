@@ -36,7 +36,7 @@ let rec dropWhile pred xs =
     | [] -> []
     | x::xs' -> if pred x then dropWhile pred xs' else xs
 
-(* P37 - Prime factors with their multiplicity *)
+(* P36 - Prime factors with their multiplicity *)
 let primeFactorsMult n =
     let factors = primeFactors n
     let rec helper facs =
@@ -47,3 +47,12 @@ let primeFactorsMult n =
             let facs'' = dropWhile (fun x -> x = f) facs
             (f, List.length fs)::(helper facs'')
     helper factors 
+
+(* P37 - Totient function improved *)
+let totientImp n =
+    let factors = primeFactorsMult n
+    let rec product ns =
+        match ns with
+        | n::ns' -> n*(product ns')
+        | [] -> 1
+    product [for (p, m) in factors do yield (p-1)*(pown p (m - 1))]
