@@ -59,3 +59,15 @@ let totientImp n =
 
 (* P39 - Return a list of primes in the given range *)
 let primesR st en = [for n in st..en do if isPrime(n) then yield n]
+
+(* P40 - find two prime numbers that sum to a given even number *)
+let goldbach n =
+    if (n <= 2 || n % 2 <> 0) then failwith "Invalid input for goldbach - must be an even number greater than 2"
+    let primes = primesR 2 n
+    let rec aux primes = 
+        match primes with
+        | p::primes' -> if (isPrime (n - p)) 
+                        then (min p (n-p), max p (n - p))
+                        else aux primes'
+        | [] -> failwith "Golbach proven wrong?!"
+    aux primes
