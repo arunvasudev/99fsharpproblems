@@ -49,3 +49,17 @@ let tablen n func =
         | [] -> ()
 
     eval (genInputs n) 
+
+(* P49 - gray code with caching *)
+let rec gray n cache =
+    if Map.containsKey n cache 
+    then (Map.find n cache, cache)
+    else 
+        let rec gray' n cache =
+            match n with
+            | 0 -> ([""], cache)
+            | _ -> let (subGray, cache') = gray (n-1) cache
+                   let newGray = [for s in subGray do yield "0" + s] @ [for s in (List.rev subGray) do yield "1" + s]
+                   let cache'' = Map.add n newGray cache'
+                   (newGray, cache'')
+        gray' n cache
