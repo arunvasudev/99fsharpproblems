@@ -98,7 +98,7 @@ let huffman freqs =
         | t1::t2::ts' -> 
             let (f1, f2) = (freq t1, freq t2)
             let fnew = f1 + f2
-            let tnew = if (f1 < f2) then Branch(t1, t2, fnew) else Branch(t2, t2, fnew)
+            let tnew = if (f1 < f2) then Branch(t1, t2, fnew) else Branch(t2, t1, fnew)
             let ts'' = insertSorted tnew ts'
             combineNodes ts''
 
