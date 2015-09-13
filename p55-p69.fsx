@@ -68,3 +68,6 @@ let rec insertTree t v =
             else Branch(v', t1, insertTree t2 v)
 
 let constructTree vs = List.fold (fun acc v -> insertTree acc v) Empty vs
+
+(* P58 - return a list of symmetric trees that are completely balanced *)
+let symCBalTrees n = cBalancedTrees n |> List.filter (fun t -> isSymmetric2 t)
