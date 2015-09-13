@@ -56,3 +56,15 @@ let rec areMirrors t1 t2 =
     | _ -> false
 
 let isSymmetric2 t1 = areMirrors t1 t1
+
+(* P57 - construct a binary search tree from a given list. 
+  The trees aren't necessarily balanced. *)
+let rec insertTree t v =
+    match t with
+    | Empty -> Branch(v, Empty, Empty)
+    | Branch(v', t1, t2) ->
+            if v' = v then t
+            elif v < v' then Branch(v', insertTree t1 v, t2)
+            else Branch(v', t1, insertTree t2 v)
+
+let constructTree vs = List.fold (fun acc v -> insertTree acc v) Empty vs
